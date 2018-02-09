@@ -1,0 +1,69 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+  {{super()}}
+  <link rel="stylesheet" href="{{url_for('.static', filename='css/app.css')}}">
+{% endblock %}
+
+{% block html_attribs %} lang="en"{% endblock %}
+
+{% block title %}Twice-daily Blood Sugar Monitoring{% endblock %}
+
+{% block navbar %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="{{ url_for('indexWithHandle', handle=handle) }}">Twice-daily Blood Sugar Monitoring</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="{{ url_for('indexWithHandle', handle=handle) }}">Home</a></li>
+        </ul>
+      </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-left: 0px; padding-left: 0px;">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="wrapper">
+
+            <!-- Page Content -->
+            <div id="content">
+              {% block app_content %}{% endblock %}
+            </div>
+
+            <!-- Sidebar -->
+            <nav id="sidebar">
+              <p>
+                Welcome. I wrote this application to track my morning and evening blood
+                suger numbers. This was mostly to make automatic graphs instead of 
+                futzing with a spreadsheet.
+              </p>
+              <p>
+                <b>Please bookmark this URL.</b> It is yours. It will never be assigned again.
+                Seriously, if you don't bookmark the site right now all data you enter
+                will be lost to you forever.
+              </p>
+              <p>The code at the end of the URL is uniquely assigned to you. Whoever you are.
+              <p>
+                No personalized data is ever collected by this site. No names. No 
+                phone numbers. Nothing. Only the {{uuid}} value is stored. It's safe
+                to give the following URL to anyone. However, they will have the ability
+                to change data just like you do. So give out the URL sparingly.
+              </p>
+              <blockquote><a href="{{ url_for('indexWithHandle', handle=handle, _external=True) }}">{{ url_for('indexWithHandle', handle=handle, _external=True) }}</a></blockquote>
+            </nav>
+
+        </div>
+        <!-- scripts -->
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    </div>
+{% endblock %}

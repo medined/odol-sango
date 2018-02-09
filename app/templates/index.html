@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+<div>{{ year}} {{ monthName }}</div>
+<div id="chart">
+  <table cellpadding="3" cellspacing="3">
+    <tr><th>Day</th><th>Morning</th><th>Evening</th></tr>
+      {% for n in range(0, daysInMonth) %}
+        <tr>
+          <td>{{ n + 1 }}</td>
+          <td><input type='text'></input></td>
+          <td><input type='text'></input></td>
+        </tr>
+      {% endfor %}
+  </table>
+</div>
+
+{% endblock %}
