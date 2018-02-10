@@ -4,16 +4,37 @@
 
 <div>{{ year}} {{ monthName }}</div>
 <div id="chart">
-  <table cellpadding="3" cellspacing="3">
-    <tr><th>Day</th><th>Morning</th><th>Evening</th></tr>
-      {% for n in range(0, daysInMonth) %}
-        <tr>
-          <td>{{ n + 1 }}</td>
-          <td><input type='text'></input></td>
-          <td><input type='text'></input></td>
-        </tr>
-      {% endfor %}
-  </table>
+  <form action='/process-form' method='post'>
+    {{ form.hidden_tag() }}
+    <table><tr>
+      <td valign="top">
+        <table>
+          <tr><th style="padding: 10px;">Day</th><th style="padding: 10px;">Morning</th><th style="padding: 10px;">Evening</th></tr>
+            {% for n in range(1, 16) %}
+              <tr>
+                <td>{{n}}</td>
+                <td>{% for field in form %}{% if field.name == 'm' + n|string %}{{ field }}{% endif %}{% endfor %}</td>
+                <td>{% for field in form %}{% if field.name == 'e' + n|string %}{{ field }}{% endif %}{% endfor %}</td>
+              </tr>
+            {% endfor %}
+        </table>
+      </td>
+      <td style="padding: 25px;"></td>
+      <td valign="top">
+        <table>
+          <tr><th style="padding: 10px;">Day</th><th style="padding: 10px;">Morning</th><th style="padding: 10px;">Evening</th></tr>
+            {% for n in range(17, daysInMonth+1) %}
+              <tr>
+                <td>{{n}}</td>
+                <td>{% for field in form %}{% if field.name == 'm' + n|string %}{{ field }}{% endif %}{% endfor %}</td>
+                <td>{% for field in form %}{% if field.name == 'e' + n|string %}{{ field }}{% endif %}{% endfor %}</td>
+              </tr>
+            {% endfor %}
+        </table>
+      </td>
+    </tr></table>
+    <div style="padding-top: 10px;">{{ form.submit() }}</div>
+  </form>
 </div>
 
 {% endblock %}
