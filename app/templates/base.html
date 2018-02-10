@@ -12,11 +12,11 @@
 {% block navbar %}
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-header">
-        <a class="navbar-brand" href="{{ url_for('indexWithHandle', handle=handle) }}">Twice-daily Blood Sugar Monitoring</a>
+        <a class="navbar-brand" href="{{ url_for('indexWithHandle', handle=form.handle.data) }}">Twice-daily Blood Sugar Monitoring</a>
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="{{ url_for('indexWithHandle', handle=handle) }}">Home</a></li>
+          <li class="active"><a href="{{ url_for('indexWithHandle', handle=form.handle.data) }}">Home</a></li>
         </ul>
       </div>
   </div>
@@ -43,7 +43,7 @@
             <nav id="sidebar">
               <p>
                 Welcome. I wrote this application to track my morning and evening blood
-                suger numbers. This was mostly to make automatic graphs instead of 
+                suger numbers. This was mostly to make automatic graphs instead of
                 futzing with a spreadsheet.
               </p>
               <p>
@@ -53,12 +53,12 @@
               </p>
               <p>The code at the end of the URL is uniquely assigned to you. Whoever you are.
               <p>
-                No personalized data is ever collected by this site. No names. No 
+                No personalized data is ever collected by this site. No names. No
                 phone numbers. Nothing. Only the {{uuid}} value is stored. It's safe
                 to give the following URL to anyone. However, they will have the ability
                 to change data just like you do. So give out the URL sparingly.
               </p>
-              <blockquote><a href="{{ url_for('indexWithHandle', handle=handle, _external=True) }}">{{ url_for('indexWithHandle', handle=handle, _external=True) }}</a></blockquote>
+              <blockquote><a href="{{ url_for('indexWithHandle', handle=form.handle.data, _external=True) }}">{{ url_for('indexWithHandle', handle=form.handle.data, _external=True) }}</a></blockquote>
             </nav>
 
         </div>

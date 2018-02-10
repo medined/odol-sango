@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import FieldList, HiddenField, IntegerField, StringField, SubmitField
+from wtforms import FieldList, HiddenField, IntegerField, StringField, SubmitField, validators
 from wtforms.validators import DataRequired, UUID
 
 class DayForm(FlaskForm):
@@ -12,6 +12,6 @@ class MonthForm(FlaskForm):
     year = HiddenField('year', validators=[DataRequired()])
     daysInMonth = HiddenField('daysInMonth', validators=[DataRequired()])
     for n in range(1, 31):
-        locals()[''.join("m"+str(n))] = StringField()
-        locals()[''.join("e"+str(n))] = StringField()
+        locals()[''.join("m"+str(n))] = StringField('', [ validators.Length(min=2, max=3)])
+        locals()[''.join("e"+str(n))] = StringField('', [ validators.Length(min=2, max=3)])
     submit = SubmitField('Save')

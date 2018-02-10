@@ -24,8 +24,6 @@ def indexWithHandle(handle):
     form.e1.data = 120
     form.m2.data = 106
     form.e2.data = 116
-    for field in form:
-        print(field.name)
     return render_template(
         'index.html',
         year=now.year,
@@ -37,5 +35,7 @@ def indexWithHandle(handle):
 def processForm():
     form = MonthForm()
     if form.validate_on_submit():
+        for field in form:
+            print(field)
         print(form.handle.data)
     return 'Working...'
