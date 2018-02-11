@@ -13,10 +13,9 @@ class BloodSugarMonth(db.Model):
         return BloodSugarMonth.__table__.columns.keys()
 
     def __repr__(self):
-        # for c in BloodSugarMonth.columns():
-        #
-        # print(self.__getattribute__('uuid'))
-        # t = ""
-        # for n in range(1, 32):
-        #     t = t + 'm{}=({}) '.format(n, locals()[''.join("m"+str(n))])
-        return '<BloodSugarMonth id({}) uuid({} year({}) month({}) {})>'.format(self.id, self.uuid, self.year, self.month, '?')
+        oMorning = ""
+        oEvening = ""
+        for n in range(1, 32):
+            oMorning = oMorning + 'morning{}=({}) '.format(n, self.__getattribute__('morning'+str(n)))
+            oEvening = oEvening + 'evening{}=({}) '.format(n, self.__getattribute__('evening'+str(n)))
+        return '<BloodSugarMonth id({}) uuid({} year({}) month({}) {} {})>'.format(self.id, self.uuid, self.year, self.month, oMorning, oEvening)

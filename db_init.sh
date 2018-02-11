@@ -1,2 +1,4 @@
+./db-reset.sh
 ODOL_SECRET_KEY=2342434 FLASK_APP=app.py FLASK_DEBUG=1 flask db init
 ODOL_SECRET_KEY=2342434 FLASK_APP=app.py FLASK_DEBUG=1 flask db migrate
+ODOL_SECRET_KEY=2342434 FLASK_APP=app.py FLASK_DEBUG=1 flask db upgrade
