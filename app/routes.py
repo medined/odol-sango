@@ -16,7 +16,6 @@ def index():
 def indexWithHandle(handle):
     now = datetime.datetime.now()
     form = BloodSugarMonth.populateMonthForm(handle, now.year, now.month)
-
     return render_template(
         'index.html',
         monthName=calendar.month_name[now.month],
@@ -27,9 +26,5 @@ def indexWithHandle(handle):
 def processForm():
     form = MonthForm()
     if form.validate_on_submit():
-        for field in form:
-            print(field)
-        print(form.handle.data)
-    else:
-        return 'Invalid Form Input'
-    return 'Working...'
+        BloodSugarMonth.save(form)
+    return redirect(url_for('indexWithHandle', handle=form.handle.data))

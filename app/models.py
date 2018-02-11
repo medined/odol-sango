@@ -14,6 +14,14 @@ class BloodSugarMonth(db.Model):
     def columns():
         return BloodSugarMonth.__table__.columns.keys()
 
+    def __repr__(self):
+        oMorning = ""
+        oEvening = ""
+        for n in range(1, 32):
+            oMorning = oMorning + 'morning{}=({}) '.format(n, self.__getattribute__('morning'+str(n)))
+            oEvening = oEvening + 'evening{}=({}) '.format(n, self.__getattribute__('evening'+str(n)))
+        return '<BloodSugarMonth id({}) uuid({} year({}) month({}) {} {})>'.format(self.id, self.uuid, self.year, self.month, oMorning, oEvening)
+
     def populateMonthForm(handle, year, month):
         (weekday, daysInMonth) = monthrange(year, month)
         form = MonthForm()
@@ -44,10 +52,35 @@ class BloodSugarMonth(db.Model):
 
         return form
 
-    def __repr__(self):
-        oMorning = ""
-        oEvening = ""
+    def save(form):
+
+        def getMorningFormField(form, n):
+            for field in form:
+                if field.name == 'morning' + str(n):
+                    return(field.data)
+
+        def getEveningFormField(form, n):
+            for field in form:
+                if field.name == 'evening' + str(n):
+                    return(field.data)
+
+        print('--------------------saving')
+        # see if database record exists
+        record = db.session.query(BloodSugarMonth)\
+            .filter(BloodSugarMonth.uuid == form.handle.data)\
+            .filter(BloodSugarMonth.year == form.year.data)\
+            .filter(BloodSugarMonth.month == form.month.data)\
+            .first()
+
+        if record == None:
+            record = BloodSugarMonth(uuid=form.handle.data, year=form.year.data, month=form.month.data)
+
         for n in range(1, 32):
-            oMorning = oMorning + 'morning{}=({}) '.format(n, self.__getattribute__('morning'+str(n)))
-            oEvening = oEvening + 'evening{}=({}) '.format(n, self.__getattribute__('evening'+str(n)))
-        return '<BloodSugarMonth id({}) uuid({} year({}) month({}) {} {})>'.format(self.id, self.uuid, self.year, self.month, oMorning, oEvening)
+            # assign form value to database record.
+            record.__setattr__('morning'+str(n), getMorningFormField(form, n))
+            record.__setattr__('evening'+str(n), getEveningFormField(form, n))
+
+        if record.id == None:
+            db.session.add(record)
+
+        db.session.commit()
