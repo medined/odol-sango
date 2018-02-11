@@ -1,4 +1,6 @@
 from app import db
+from app.forms import MonthForm
+from calendar import monthrange
 
 class BloodSugarMonth(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -11,6 +13,36 @@ class BloodSugarMonth(db.Model):
 
     def columns():
         return BloodSugarMonth.__table__.columns.keys()
+
+    def populateMonthForm(handle, year, month):
+        (weekday, daysInMonth) = monthrange(year, month)
+        form = MonthForm()
+        form.handle.data = handle
+        form.year.data = year
+        form.month.data = month
+        form.daysInMonth.data = daysInMonth
+
+        # see if database record exists
+        record = db.session.query(BloodSugarMonth)\
+            .filter(BloodSugarMonth.uuid == handle)\
+            .filter(BloodSugarMonth.year == year)\
+            .filter(BloodSugarMonth.month == month)\
+            .first()
+
+        if record:
+            for n in range(1, 32):
+                mValue = record.__getattribute__('morning'+str(n))
+                if mValue != 0 and mValue != None:
+                    for field in form:
+                        if field.name == 'morning' + str(n):
+                            field.data = mValue
+                eValue = record.__getattribute__('evening'+str(n))
+                if eValue != 0 and eValue != None:
+                    for field in form:
+                        if field.name == 'evening' + str(n):
+                            field.data = eValue
+
+        return form
 
     def __repr__(self):
         oMorning = ""

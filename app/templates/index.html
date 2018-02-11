@@ -2,7 +2,7 @@
 
 {% block app_content %}
 
-<div>{{ year}} {{ monthName }}</div>
+<div>{{ form.year.data }} {{ monthName }}</div>
 <div id="chart">
   <form action='/process-form' method='post'>
     {{ form.hidden_tag() }}
@@ -13,8 +13,8 @@
             {% for n in range(1, 16) %}
               <tr>
                 <td>{{n}}</td>
-                <td>{% for field in form %}{% if field.name == 'm' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
-                <td>{% for field in form %}{% if field.name == 'e' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
+                <td>{% for field in form %}{% if field.name == 'morning' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
+                <td>{% for field in form %}{% if field.name == 'evening' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
               </tr>
             {% endfor %}
         </table>
@@ -26,8 +26,8 @@
             {% for n in range(17, daysInMonth+1) %}
               <tr>
                 <td>{{n}}</td>
-                <td>{% for field in form %}{% if field.name == 'm' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
-                <td>{% for field in form %}{% if field.name == 'e' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
+                <td>{% for field in form %}{% if field.name == 'morning' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
+                <td>{% for field in form %}{% if field.name == 'evening' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
               </tr>
             {% endfor %}
         </table>
