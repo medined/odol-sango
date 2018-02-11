@@ -38,4 +38,6 @@ def processForm():
         for field in form:
             print(field)
         print(form.handle.data)
+    else:
+        return 'Invalid Form Input'
     return 'Working...'

@@ -12,6 +12,6 @@ class MonthForm(FlaskForm):
     year = HiddenField('year', validators=[DataRequired()])
     daysInMonth = HiddenField('daysInMonth', validators=[DataRequired()])
     for n in range(1, 31):
-        locals()[''.join("m"+str(n))] = StringField('', [ validators.Length(min=2, max=3)])
-        locals()[''.join("e"+str(n))] = StringField('', [ validators.Length(min=2, max=3)])
+        locals()[''.join("m"+str(n))] = StringField('', [ validators.Length(min=0, max=4)])
+        locals()[''.join("e"+str(n))] = StringField('', [ validators.Length(min=0, max=4)])
     submit = SubmitField('Save')

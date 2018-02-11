@@ -2,6 +2,14 @@
 
 Web Application To Track Twice Daily Blood Sugar Readings
 
+## Database
+
+### Postgres
+
+```
+docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=password -d postgres
+```
+ pip install flask-sqlalchemy
 ## Package Installation
 
 ```
@@ -18,6 +26,7 @@ pip freeze > requirements.txt
 
 ```
 echo "hamburger" > .gitignore
+echo "__pycache__" >> .gitignore
 
 python3 -m venv hamburger
 source hamburger/bin/activate
