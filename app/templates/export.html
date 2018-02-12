@@ -1,0 +1,8 @@
+Handle, Year, Month,
+{% for field in form %}{% if field.name.startswith('morning') %}{{ field.name }}, {% endif %}{% endfor %}
+{% for field in form %}{% if field.name.startswith('evening') %}{{ field.name }}, {% endif %}{% endfor %}
+ExportDate<br>
+{{ form.handle.data }},{{ form.year.data }},{{ form.month.data }},
+{% for field in form %}{% if field.name.startswith('morning') %}{{ field.data }},{% endif %}{% endfor %}
+{% for field in form %}{% if field.name.startswith('evening') %}{{ field.data }},{% endif %}{% endfor %}
+{{ exportDate }}<br>

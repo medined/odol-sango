@@ -125,4 +125,10 @@ def processForm():
     form = MonthForm()
     if form.validate_on_submit():
         BloodSugarMonth.save(form)
+        if form.export.data:
+            return render_template('export.html',
+                exportDate=datetime.datetime.now(),
+                monthName=calendar.month_name[int(form.month.data)],
+                daysInMonth=int(form.daysInMonth.data),
+                form=form)
     return redirect(url_for('indexWithHandleAndDate', handle=form.handle.data, year=form.year.data, month=form.month.data))

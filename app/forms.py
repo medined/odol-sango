@@ -15,3 +15,4 @@ class MonthForm(FlaskForm):
         locals()[''.join("morning"+str(n))] = StringField('', [ validators.Length(min=0, max=4)])
         locals()[''.join("evening"+str(n))] = StringField('', [ validators.Length(min=0, max=4)])
     submit = SubmitField('Save')
+    export = SubmitField('Export')
