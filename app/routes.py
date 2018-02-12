@@ -58,7 +58,7 @@ def indexWithHandle(handle):
         next_month = now.month + 1
 
     # previous month
-    if month == 1:
+    if now.month == 1:
         previous_year = now.year - 1
         previous_month = 12
     else:
