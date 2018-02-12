@@ -48,6 +48,25 @@ def index():
 def indexWithHandle(handle):
     now = datetime.datetime.now()
     form, record = populateMonthForm(handle, now.year, now.month)
+
+    # next month
+    if now.month == 12:
+        next_year = now.year + 1
+        next_month = 1
+    else:
+        next_year = now.year
+        next_month = now.month + 1
+
+    # previous month
+    if month == 1:
+        previous_year = now.year - 1
+        previous_month = 12
+    else:
+        previous_year = now.year
+        previous_month = now.month - 1
+
+    minimum = 70
+    maximum = 200
     if record:
         minimum, maximum = record.getGraphInfo()
     return render_template(
@@ -56,11 +75,35 @@ def indexWithHandle(handle):
         daysInMonth=int(form.daysInMonth.data),
         minimum=minimum,
         maximum=maximum,
+        target_morning=app.config['TARGET_MORNING'],
+        target_evening=app.config['TARGET_EVENING'],
+        next_year=next_year,
+        next_month=next_month,
+        previous_year=previous_year,
+        previous_month=previous_month,
         form=form)
 
 @app.route('/<handle>/<int:year>/<int:month>')
 def indexWithHandleAndDate(handle, year, month):
+    # next month
+    if month == 12:
+        next_year = year + 1
+        next_month = 1
+    else:
+        next_year = year
+        next_month = month + 1
+
+    # previous month
+    if month == 1:
+        previous_year = year - 1
+        previous_month = 12
+    else:
+        previous_year = year
+        previous_month = month - 1
+
     form, record = populateMonthForm(handle, year, month)
+    minimum = 70
+    maximum = 200
     if record:
         minimum, maximum = record.getGraphInfo()
     return render_template(
@@ -69,6 +112,12 @@ def indexWithHandleAndDate(handle, year, month):
         daysInMonth=int(form.daysInMonth.data),
         minimum=minimum,
         maximum=maximum,
+        target_morning=app.config['TARGET_MORNING'],
+        target_evening=app.config['TARGET_EVENING'],
+        next_year=next_year,
+        next_month=next_month,
+        previous_year=previous_year,
+        previous_month=previous_month,
         form=form)
 
 @app.route('/process-form', methods=['POST'])
@@ -76,4 +125,4 @@ def processForm():
     form = MonthForm()
     if form.validate_on_submit():
         BloodSugarMonth.save(form)
-    return redirect(url_for('indexWithHandle', handle=form.handle.data))
+    return redirect(url_for('indexWithHandleAndDate', handle=form.handle.data, year=form.year.data, month=form.month.data))
