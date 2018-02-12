@@ -6,9 +6,13 @@
 <script>
 var mData = [];
 var eData = [];
+var mTarget = [];
+var eTarget = [];
 {% for n in range(1, daysInMonth+1) %}
 mData.push({"sugar": "{% for field in form %}{% if field.name == 'morning' + n|string %}{{ field.data if field.data }}{% endif %}{% endfor %}","day": "{{n}}"});
 eData.push({"sugar": "{% for field in form %}{% if field.name == 'evening' + n|string %}{{ field.data if field.data }}{% endif %}{% endfor %}","day": "{{n}}"});
+mTarget.push({"sugar": "100","day": "{{n}}"});
+eTarget.push({"sugar": "140","day": "{{n}}"});
 {% endfor %}
 </script>
 
@@ -25,7 +29,7 @@ var vis = d3.select("#visualisation"),
         left: 50
     },
     xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([1,{{form.daysInMonth.data}}]),
-    yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([90,200]),
+    yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([{{minimum}},{{maximum}}]),
     xAxis = d3.svg.axis().scale(xScale),
     yAxis = d3.svg.axis().scale(yScale).orient("left");
 
@@ -39,7 +43,7 @@ var vis = d3.select("#visualisation"),
         .attr("transform", "translate(" + (MARGINS.left) + ",0)")
         .call(yAxis);
 
-    var lineGen = d3.svg.line()
+    var sugarLineGen = d3.svg.line()
       .defined(function(d) { return d.sugar != 0; })
       .x(function(d) {
         return xScale(d.day);
@@ -49,12 +53,28 @@ var vis = d3.select("#visualisation"),
       });
 
     vis.append('svg:path')
-      .attr('d', lineGen(mData))
+      .attr('d', sugarLineGen(mData))
       .attr('stroke', 'green')
       .attr('stroke-width', 2)
       .attr('fill', 'none');
 
+    vis.append('svg:path')
+      .attr('d', sugarLineGen(eData))
+      .attr('stroke', 'red')
+      .attr('stroke-width', 2)
+      .attr('fill', 'none');
 
+    vis.append('svg:path')
+      .attr('d', sugarLineGen(mTarget))
+      .attr('stroke', 'black')
+      .attr('stroke-width', 1)
+      .attr('fill', 'none');
+
+    vis.append('svg:path')
+      .attr('d', sugarLineGen(eTarget))
+      .attr('stroke', 'black')
+      .attr('stroke-width', 1)
+      .attr('fill', 'none');
 </script>
 
 <div>{{ form.year.data }} {{ monthName }}</div>
