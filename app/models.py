@@ -4,7 +4,7 @@ from calendar import monthrange
 
 class BloodSugarMonth(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    uuid = db.Column(db.String(36), index=True, unique=True)
+    uuid = db.Column(db.String(36), index=True)
     year =  db.Column(db.Integer, index=False)
     month = db.Column(db.Integer, index=False)
     for n in range(1, 32):
