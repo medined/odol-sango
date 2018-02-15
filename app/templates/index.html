@@ -9,8 +9,8 @@ var eData = [];
 var mTarget = [];
 var eTarget = [];
 {% for n in range(1, daysInMonth+1) %}
-mData.push({"sugar": "{% for field in form %}{% if field.name == 'morning' + n|string %}{{ field.data if field.data }}{% endif %}{% endfor %}","day": "{{n}}"});
-eData.push({"sugar": "{% for field in form %}{% if field.name == 'evening' + n|string %}{{ field.data if field.data }}{% endif %}{% endfor %}","day": "{{n}}"});
+mData.push({"sugar": "{{ form.getField('morning' + n|string).data }}", "day": "{{n}}"});
+eData.push({"sugar": "{{ form.getField('evening' + n|string).data }}", "day": "{{n}}"});
 mTarget.push({"sugar": "{{ target_morning }}","day": "{{n}}"});
 eTarget.push({"sugar": "{{ target_evening }}","day": "{{n}}"});
 {% endfor %}
@@ -94,8 +94,8 @@ var vis = d3.select("#visualisation"),
               <tr>
                 <td>{{n}}</td>
                 <!-- onblur="javascript:if(this.value<=100){this.style.color='green';}else{this.style.color='black';}" -->
-                <td>{% for field in form %}{% if field.name == 'morning' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
-                <td>{% for field in form %}{% if field.name == 'evening' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
+                <td>{{ form.getField('morning' + n|string)(size="5") }}</td>
+                <td>{{ form.getField('evening' + n|string)(size="5") }}</td>
               </tr>
             {% endfor %}
         </table>
@@ -107,8 +107,8 @@ var vis = d3.select("#visualisation"),
             {% for n in range(17, daysInMonth+1) %}
               <tr>
                 <td>{{n}}</td>
-                <td>{% for field in form %}{% if field.name == 'morning' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
-                <td>{% for field in form %}{% if field.name == 'evening' + n|string %}{{ field(size="5") }}{% endif %}{% endfor %}</td>
+                <td>{{ form.getField('morning' + n|string)(size="5") }}</td>
+                <td>{{ form.getField('evening' + n|string)(size="5") }}</td>
               </tr>
             {% endfor %}
         </table>

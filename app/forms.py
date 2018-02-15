@@ -16,3 +16,9 @@ class MonthForm(FlaskForm):
         locals()[''.join("evening"+str(n))] = StringField('', [ validators.Length(min=0, max=4)])
     submit = SubmitField('Save')
     export = SubmitField('Export')
+
+    def getField(self, fieldName, *fields):
+        for f in self:
+            if f.name == fieldName:
+                return f
+        return None
