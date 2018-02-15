@@ -13,7 +13,7 @@ class MonthForm(FlaskForm):
     submit = SubmitField('Save')
     export = SubmitField('Export')
 
-    def getField(self, fieldName, *fields):
+    def getField(self, fieldName):
         for f in self:
             if f.name == fieldName:
                 return f
