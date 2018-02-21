@@ -9,7 +9,7 @@ Web Application To Track Twice Daily Blood Sugar Readings
 ```
 docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=password -d postgres
 ```
- pip install flask-sqlalchemy
+
 ## Package Installation
 
 ```

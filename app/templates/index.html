@@ -89,7 +89,7 @@ var vis = d3.select("#visualisation"),
     <table><tr>
       <td valign="top">
         <table>
-          <tr><th style="padding: 10px;">Day</th><th style="padding: 10px;">Morning</th><th style="padding: 10px;">Evening</th></tr>
+          <tr><th style="padding: 10px;">Day</th><th style="padding: 10px; color: green;">Morning</th><th style="padding: 10px; color: red;">Evening</th></tr>
             {% for n in range(1, 17) %}
               <tr>
                 <td>{{n}}</td>
@@ -103,7 +103,7 @@ var vis = d3.select("#visualisation"),
       <td style="padding: 25px;"></td>
       <td valign="top">
         <table>
-          <tr><th style="padding: 10px;">Day</th><th style="padding: 10px;">Morning</th><th style="padding: 10px;">Evening</th></tr>
+          <tr><th style="padding: 10px;">Day</th><th style="padding: 10px; color: green;">Morning</th><th style="padding: 10px; color: red;">Evening</th></tr>
             {% for n in range(17, daysInMonth+1) %}
               <tr>
                 <td>{{n}}</td>
