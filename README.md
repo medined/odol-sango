@@ -2,6 +2,8 @@
 
 Web Application To Track Twice Daily Blood Sugar Readings
 
+[![wercker status](https://app.wercker.com/status/3090995c68882b60a1bfa44488517d20/s/master "wercker status")](https://app.wercker.com/project/byKey/3090995c68882b60a1bfa44488517d20)
+
 ## Database
 
 ### Postgres
