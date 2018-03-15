@@ -35,7 +35,8 @@ var vis = d3.select("#visualisation"),
         left: 50
     },
     xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([1,{{form.daysInMonth.data}}]),
-    yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([{{minimum}},{{maximum}}]),
+    //yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([{{minimum}},{{maximum}}]),
+    yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([90,200]),
     xAxis = d3.svg.axis().scale(xScale),
     yAxis = d3.svg.axis().scale(yScale).orient("left");
 
